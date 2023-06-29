@@ -1,4 +1,7 @@
+import './style.css'
 import * as THREE from 'three'
+import gsap from 'gsap'
+
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -28,42 +31,20 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
-renderer.render(scene, camera)
 
 
-//Clock
-const clock= new THREE.Clock()
+//Animation
+gsap.to(mesh.position, { duration: 1, delay: 1, x: 2 })
+gsap.to(mesh.position, { duration: 1, delay: 2, x: 0 })
 
-
-//Animation 
 const tick = () =>
 {
-
-    //Clock 
-    const elapsedTime= clock.getElapsedTime()
-    console.log(elapsedTime);
-   
-
-
-    //Update objects
-
-    // mesh.position.x -= 0.01
-    // mesh.position.y += 0.01
-    //mesh.rotation.y =elapsedTime  * Math.PI *2 // i could play with rotation also
-    
-    // mesh.position.y =Math.sin(elapsedTime )
-    // mesh.position.x =Math.cos(elapsedTime )
-
-    //i can do the same thing to my camera
-    camera.position.y =Math.sin(elapsedTime )
-    camera.position.x =Math.cos(elapsedTime )
-    camera.lookAt(mesh.position)
-
-
-    //Render
+    // Render
     renderer.render(scene, camera)
 
+    // Call tick again on the next frame
     window.requestAnimationFrame(tick)
 }
 
 tick()
+
